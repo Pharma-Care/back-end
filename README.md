@@ -5,7 +5,7 @@
 ## Installation steps
 <div>
 clone this repo<br>
-<code>git clone https://github.com/Pharma-Care/back-end.git</code><br>
+<code>git clone https://github.com/Pharma-Care/back-end.git</code><br><br>
 go into the project folder<br>
 <code>cd back-end</code><br>
 <div>
