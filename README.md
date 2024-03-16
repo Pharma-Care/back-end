@@ -9,7 +9,8 @@ clone this repo<br>
 go into the project folder<br>
 <code>cd back-end</code><br>
 <div>
-create a python virtual environment
+<br>
+create a python virtual environment<br>
 <code>python3 -m venv env<br>source venv/bin/activate<br>pip install -r requirements.txt</code><br><br>
 create the database<br>
 <code>python manage.py makemigrations<br>python manage.py migrate</code>
