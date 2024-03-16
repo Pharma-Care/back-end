@@ -11,7 +11,7 @@ go into the project folder<br>
 <div>
 <br>
 create a python virtual environment<br>
-<code>python3 -m venv env<br>source venv/bin/activate<br>pip install -r requirements.txt</code><br><br>
+<code>python3 -m venv env<br></code><code>source venv/bin/activate<br></code><code>pip install -r requirements.txt</code><br><br>
 create the database<br>
 <code>python manage.py makemigrations</code> <br><code>python manage.py migrate</code>
 </div>
