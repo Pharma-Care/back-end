@@ -15,6 +15,8 @@ create a python virtual environment<br>
 create the database<br>
 <code>python manage.py makemigrations<br>python manage.py migrate</code>
 </div>
+<br>
+<br>
 Finally, Run the server
 <code>python manage.py runserver</code>
 </div>
