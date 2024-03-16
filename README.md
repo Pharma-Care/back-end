@@ -16,7 +16,6 @@ create the database<br>
 <code>python manage.py makemigrations<br>python manage.py migrate</code>
 </div>
 <br>
-<br>
-Finally, Run the server
+Finally, Run the server<br>
 <code>python manage.py runserver</code>
 </div>
