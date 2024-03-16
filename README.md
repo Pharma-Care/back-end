@@ -13,7 +13,7 @@ go into the project folder<br>
 create a python virtual environment<br>
 <code>python3 -m venv env<br>source venv/bin/activate<br>pip install -r requirements.txt</code><br><br>
 create the database<br>
-<code>python manage.py makemigrations<br>python manage.py migrate</code>
+<code>python manage.py makemigrations</code> <br><code>python manage.py migrate</code>
 </div>
 <br>
 Finally, Run the server<br>
