@@ -31,11 +31,12 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=12, unique=True)
     first_name = models.CharField(max_length=150, null=True)
     last_name = models.CharField(max_length=150, null=True)
+    username = models.CharField(max_length=150, null=True)
 
     USERNAME_FIELD = "phone_number"
     objects = CustomUserManager()
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.phone_number
 
 
