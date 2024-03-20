@@ -15,7 +15,6 @@ __pycache__/
 #Dependency dirs and files
 venv/
 env/
-.env
 .git/
 
 #compiled files

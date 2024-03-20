@@ -1,6 +1,32 @@
 from enum import unique
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
+from django.utils.text import wrap
+
+TAX_STATUS_CHOICES = (
+    ("taxable", "Taxable"),
+    ("tax_exempt", "Tax-exempt"),
+    ("zero_rated", "Zero-rated"),
+    ("reduced_rate", "Reduced rate"),
+    ("out_of_scope", "Out of scope"),
+    ("unknown", "Tax status unknown"),
+)
+MEDICAL_CATEGORY_CHOICES = (
+    ("general", "General Medicine"),
+    ("prescription", "Prescription Medication"),
+    ("over_the_counter", "Over-the-counter Medication"),
+    ("vaccines", "Vaccines"),
+    ("medical_devices", "Medical Devices"),
+    ("first_aid", "First Aid Supplies"),
+    ("vitamins_and_supplements", "Vitamins and Supplements"),
+    ("other", "Other"),
+)
+USER_ROLES = (
+    ("admin", "Admin"),
+    ("inventory_manager", "InventoryManager"),
+    ("pharmacy_technician", "PharmacyTechnician"),
+    ("pharmacist", "Pharmacist"),
+)
 
 
 # Create your models here.
@@ -55,8 +81,13 @@ class IStaffAccount(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=2, choices=_GENDERS)
+<<<<<<< HEAD
     role = models.CharField(max_length=150, choices = _ROLES)
     # image = models.ImageField(upload_to="staff_images", null=True, blank=True)
+=======
+    email = models.EmailField(unique=True, max_length=100, blank=False, default=None)
+    role = models.CharField(max_length=20, choices=USER_ROLES, default=None)
+>>>>>>> 69be32a25ddb652582f3c8fb56b08c6f5cbb74a4
 
     class Meta:
         abstract = True
@@ -76,3 +107,26 @@ class PharmacyTechnician(IStaffAccount):
 
 class Pharmacist(IStaffAccount):
     """A user that has access to both customer data and inventory data."""
+
+
+class Category(models.Model):
+    """Medical category of items."""
+
+    category_name = models.CharField(max_length=255, choices=MEDICAL_CATEGORY_CHOICES)
+
+
+class IInventoryItem(models.Model):
+    """This contains name, price,item_code, tax_status and category."""
+
+    item_name = models.CharField(max_length=255, blank=False, null=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    item_code = models.CharField(max_length=255, blank=False, null=False)
+    tax_status = models.CharField(max_length=255, choices=TAX_STATUS_CHOICES)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    logged = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return f"{self.item_name}"
