@@ -44,9 +44,19 @@ class IStaffAccount(models.Model):
     """Holds common logic for application users. Admin, InventoryManager, PharmacyTechnician,Pharmacist."""
 
     _GENDERS = (("M", "MALE"), ("F", "FEMALE"))
+    _ROLES = (
+    ("ADMIN", "Admin"),
+    ("INVENTORY_MANAGER", "Inventory Manager"),
+    ("PHARMACY_TECHNICIAN", "Pharmacy Technician"),
+    ("PHARMACIST", "Pharmacist"),
+)
+
+
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=2, choices=_GENDERS)
+    role = models.CharField(max_length=150, choices = _ROLES)
+    # image = models.ImageField(upload_to="staff_images", null=True, blank=True)
 
     class Meta:
         abstract = True
@@ -54,7 +64,7 @@ class IStaffAccount(models.Model):
 
 class Admin(IStaffAccount):
     """A user that is system administrator."""
-
+    
 
 class InventoryManager(IStaffAccount):
     """A user that manages the inventory stock."""
