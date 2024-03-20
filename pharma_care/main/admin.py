@@ -55,7 +55,7 @@ class UserAdmin(BaseUserAdmin):
     list_display = ["phone_number", "first_name", "last_name", "is_staff"]
     list_filter = []
     fieldsets = [
-        (None, {"fields": ["phone_number", "password"]}),
+        (None, {"fields": ["phone_number", "password", "email"]}),
         ("Personal Info", {"fields": ["first_name", "last_name"]}),
         ("Permissions", {"fields": ["is_staff", "is_superuser", "is_active"]}),
     ]
@@ -77,6 +77,7 @@ class UserAdmin(BaseUserAdmin):
     ]
     search_fields = ["phone_number"]
     ordering = ["phone_number"]
+    empty_value_display = ["-empty-"]
 
 
 # Register your models here.
