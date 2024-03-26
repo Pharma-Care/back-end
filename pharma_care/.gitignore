@@ -4,6 +4,7 @@
 *.pyd
 __pycache__/
 *.sqlite3
+migrations/
 
 #IDE and editor files
 .vscode/
