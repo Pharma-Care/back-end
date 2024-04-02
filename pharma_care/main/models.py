@@ -70,11 +70,18 @@ class IStaffAccount(models.Model):
     """Holds common logic for application users. Admin, InventoryManager, PharmacyTechnician,Pharmacist."""
 
     _GENDERS = (("M", "MALE"), ("F", "FEMALE"))
+    _ROLES = (
+        ("ADMIN", "Admin"),
+        ("INVENTORY_MANAGER", "Inventory Manager"),
+        ("PHARMACY_TECHNICIAN", "Pharmacy Technician"),
+        ("PHARMACIST", "Pharmacist"),
+    )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=2, choices=_GENDERS)
     email = models.EmailField(unique=True, max_length=100, blank=False, default=None)
     role = models.CharField(max_length=20, choices=USER_ROLES, default=None)
+    # image = models.ImageField(upload_to="profile_pics", default="default.jpg")
 
     class Meta:
         abstract = True
@@ -96,10 +103,13 @@ class Pharmacist(IStaffAccount):
     """A user that has access to both customer data and inventory data."""
 
 
-class Category(models.Model):
-    """Medical category of items."""
+# class Category(models.Model):
+#     """Medical category of items."""
 
-    category_name = models.CharField(max_length=255, choices=MEDICAL_CATEGORY_CHOICES)
+#     category_name = models.CharField(max_length=255, choices=MEDICAL_CATEGORY_CHOICES)
+
+#     def __str__(self):
+#         return self.category_name
 
 
 class InventoryItem(models.Model):
@@ -109,7 +119,9 @@ class InventoryItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     item_code = models.CharField(max_length=255, blank=False, null=False)
     tax_status = models.CharField(max_length=255, choices=TAX_STATUS_CHOICES)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.CharField(
+        max_length=255, default=None, choices=MEDICAL_CATEGORY_CHOICES
+    )
     logged = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -1,4 +1,4 @@
-from main.models import User, Admin, InventoryManager, Pharmacist, PharmacyTechnician
+from .models import InventoryItem, User, Admin, InventoryManager, Pharmacist, PharmacyTechnician
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError
 
@@ -52,3 +52,9 @@ class InventoryManagerSerializer(serializers.ModelSerializer):
         inventory_mgr.save()
 
         return inventory_mgr
+    
+
+class InventorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InventoryItem
+        fields = "__all__"

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from main.models import User, Pharmacist, PharmacyTechnician, InventoryManager
+from .models import User, Pharmacist, PharmacyTechnician, InventoryManager, InventoryItem
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
@@ -16,7 +16,7 @@ class UserCreationForm(forms.ModelForm):
         password2 = self.cleaned_data.get("password2")
 
         if password1 and password2 and password1 != password2:
-            raise ValidationError("Passwords do not match!")
+            raise forms.ValidationError("Passwords do not match!")
 
         return password2
 
@@ -86,3 +86,4 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Pharmacist)
 admin.site.register(PharmacyTechnician)
 admin.site.register(InventoryManager)
+admin.site.register(InventoryItem)

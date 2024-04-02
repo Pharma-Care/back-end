@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "djoser",
-    "drf_yasg",
+    # "drf_yasg",
     "django_filters",
 ]
 
@@ -99,16 +99,16 @@ sqlite_db_config = {
     }
 }
 
-mysql_db_config = {
-    "default": {
-        "ENGINE": config("DB_ENGINE"),
-        "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT"),
-    }
-}
+# mysql_db_config = {
+#     "default": {
+#         "ENGINE": config("DB_ENGINE"),
+#         "NAME": config("DB_NAME"),
+#         "USER": config("DB_USER"),
+#         "PASSWORD": config("DB_PASSWORD"),
+#         "HOST": config("DB_HOST"),
+#         "PORT": config("DB_PORT"),
+#     }
+# }
 
 if DEBUG:
     DATABASES = sqlite_db_config
