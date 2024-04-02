@@ -114,6 +114,7 @@ class Pharmacist(IStaffAccount):
 #         return self.category_name
 
 
+
 class InventoryItem(models.Model):
     """This contains name, price,item_code, tax_status and category."""
 
@@ -123,6 +124,10 @@ class InventoryItem(models.Model):
     tax_status = models.CharField(max_length=255, choices=TAX_STATUS_CHOICES)
     category = models.CharField(max_length=255,  default = None, choices = MEDICAL_CATEGORY_CHOICES)
     logged = models.DateTimeField(auto_now_add=True)
+    quantity = models.IntegerField(default=0)
+    cost_per_unit = models.IntegerField(default=0)
+    batch = models.CharField(max_length = 255, blank = False, null = False)
+
 
 
     def __str__(self):
