@@ -102,7 +102,7 @@ class Category(models.Model):
     category_name = models.CharField(max_length=255, choices=MEDICAL_CATEGORY_CHOICES)
 
 
-class IInventoryItem(models.Model):
+class InventoryItem(models.Model):
     """This contains name, price,item_code, tax_status and category."""
 
     item_name = models.CharField(max_length=255, blank=False, null=False)
@@ -111,9 +111,6 @@ class IInventoryItem(models.Model):
     tax_status = models.CharField(max_length=255, choices=TAX_STATUS_CHOICES)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     logged = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        abstract = True
 
     def __str__(self):
         return f"{self.item_name}"
