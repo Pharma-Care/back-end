@@ -69,30 +69,3 @@ class StaffAccount(models.Model):
         return f"{self.user} - {self.role}"
 
 
-# class Category(models.Model):
-#     """Medical category of items."""
-
-#     category_name = models.CharField(max_length=255, choices=MEDICAL_CATEGORY_CHOICES)
-
-#     def __str__(self):
-#         return self.category_name
-
-
-
-class InventoryItem(models.Model):
-    """This contains name, price,item_code, tax_status and category."""
-
-    item_name = models.CharField(max_length=255, blank=False, null=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    item_code = models.CharField(max_length=255, blank=False, null=False)
-    tax_status = models.CharField(max_length=255, choices=TAX_STATUS_CHOICES)
-    category = models.CharField(max_length=255,  default = None, choices = MEDICAL_CATEGORY_CHOICES)
-    logged = models.DateTimeField(auto_now_add=True)
-    quantity = models.IntegerField(default=0)
-    cost_per_unit = models.IntegerField(default=0)
-    batch = models.CharField(max_length = 255, blank = False, null = False)
-
-
-
-    def __str__(self):
-        return f"{self.item_name}"

@@ -32,9 +32,9 @@ class InventoryItem(models.Model):
         max_length=255, default=None, choices=MEDICAL_CATEGORY_CHOICES
     )
     logged = models.DateTimeField(auto_now_add=True)
+    quantity = models.IntegerField(default=0)
+    cost_per_unit = models.IntegerField(default=0)
+    batch = models.CharField(max_length=255, blank=False, null=False)
 
     def __str__(self):
         return f"{self.item_name}"
-
-
-# Create your models here.
