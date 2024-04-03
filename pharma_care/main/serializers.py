@@ -1,4 +1,4 @@
-from .models import InventoryItem, User, Admin, InventoryManager, Pharmacist, PharmacyTechnician
+from .models import StaffAccount, User
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError
 
@@ -17,11 +17,11 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class InventoryManagerSerializer(serializers.ModelSerializer):
+class StaffAccountSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
 
     class Meta:
-        model = InventoryManager
+        model = StaffAccount
         fields = "__all__"
 
     def create(self, validated_data):
@@ -29,17 +29,17 @@ class InventoryManagerSerializer(serializers.ModelSerializer):
         user_data.is_valid(raise_exception=True)
         user_instance = user_data.save()
 
-        inventry_mgr_instance = InventoryManager.objects.create(
+        staff_account_instance = StaffAccount.objects.create(
             user=user_instance, **validated_data
         )
 
-        return inventry_mgr_instance
+        return staff_account_instance
 
-    def update(self, inventory_mgr, validated_data):
+    def update(self, staff_account, validated_data):
         user_data = validated_data.pop("user", None)
 
         if user_data:
-            user_instance = inventory_mgr.user
+            user_instance = staff_account.user
             for key, value in user_data:
                 if key == "password":
                     raise ParseError(
@@ -48,13 +48,7 @@ class InventoryManagerSerializer(serializers.ModelSerializer):
                 setattr(user_instance, key, value)
                 user_instance.save()
         for key, value in validated_data.items():
-            setattr(inventory_mgr, key, value)
-        inventory_mgr.save()
+            setattr(staff_account, key, value)
+        staff_account.save()
 
-        return inventory_mgr
-    
-
-class InventorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = InventoryItem
-        fields = "__all__"
+        return staff_account

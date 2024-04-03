@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib import admin
-from .models import User, Pharmacist, PharmacyTechnician, InventoryManager, InventoryItem
+from .models import (
+    StaffAccount,
+    User,
+)
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
@@ -83,7 +86,4 @@ class UserAdmin(BaseUserAdmin):
 # Register your models here.
 admin.site.register(User, UserAdmin)
 
-admin.site.register(Pharmacist)
-admin.site.register(PharmacyTechnician)
-admin.site.register(InventoryManager)
-admin.site.register(InventoryItem)
+admin.site.register(StaffAccount)

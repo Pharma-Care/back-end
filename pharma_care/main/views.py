@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from main.models import InventoryManager, Pharmacist, PharmacyTechnician, User
-from main.serializers import InventoryManagerSerializer
+from main.models import StaffAccount, User
+from main.serializers import StaffAccountSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import exceptions as rest_exceptions
@@ -13,13 +13,13 @@ class CommonUserEndpoint(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        user = InventoryManager.objects.get(user=request.user)
+        user = StaffAccount.objects.get(user=request.user)
 
         if not user:
             raise rest_exceptions.NotFound("user not found!")
 
         user_res = None
         if user.role == "inventory_manager":
-            user_res = InventoryManagerSerializer(user)
+            user_res = StaffAccountSerializer(user)
 
         return Response(user_res.data)

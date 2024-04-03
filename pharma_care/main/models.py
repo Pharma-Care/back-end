@@ -3,24 +3,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.utils.text import wrap
 
-TAX_STATUS_CHOICES = (
-    ("taxable", "Taxable"),
-    ("tax_exempt", "Tax-exempt"),
-    ("zero_rated", "Zero-rated"),
-    ("reduced_rate", "Reduced rate"),
-    ("out_of_scope", "Out of scope"),
-    ("unknown", "Tax status unknown"),
-)
-MEDICAL_CATEGORY_CHOICES = (
-    ("general", "General Medicine"),
-    ("prescription", "Prescription Medication"),
-    ("over_the_counter", "Over-the-counter Medication"),
-    ("vaccines", "Vaccines"),
-    ("medical_devices", "Medical Devices"),
-    ("first_aid", "First Aid Supplies"),
-    ("vitamins_and_supplements", "Vitamins and Supplements"),
-    ("other", "Other"),
-)
 USER_ROLES = (
     ("admin", "Admin"),
     ("inventory_manager", "InventoryManager"),
@@ -66,7 +48,7 @@ class User(AbstractUser):
         return self.phone_number
 
 
-class IStaffAccount(models.Model):
+class StaffAccount(models.Model):
     """Holds common logic for application users. Admin, InventoryManager, PharmacyTechnician,Pharmacist."""
 
     _GENDERS = (("M", "MALE"), ("F", "FEMALE"))
@@ -83,24 +65,8 @@ class IStaffAccount(models.Model):
     role = models.CharField(max_length=20, choices=USER_ROLES, default=None)
     # image = models.ImageField(upload_to="profile_pics", default="default.jpg")
 
-    class Meta:
-        abstract = True
-
-
-class Admin(IStaffAccount):
-    """A user that is system administrator."""
-
-
-class InventoryManager(IStaffAccount):
-    """A user that manages the inventory stock."""
-
-
-class PharmacyTechnician(IStaffAccount):
-    """A user that has access to inventory item's dispensal."""
-
-
-class Pharmacist(IStaffAccount):
-    """A user that has access to both customer data and inventory data."""
+    def __str__(self):
+        return f"{self.user} - {self.role}"
 
 
 # class Category(models.Model):
@@ -110,19 +76,3 @@ class Pharmacist(IStaffAccount):
 
 #     def __str__(self):
 #         return self.category_name
-
-
-class InventoryItem(models.Model):
-    """This contains name, price,item_code, tax_status and category."""
-
-    item_name = models.CharField(max_length=255, blank=False, null=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    item_code = models.CharField(max_length=255, blank=False, null=False)
-    tax_status = models.CharField(max_length=255, choices=TAX_STATUS_CHOICES)
-    category = models.CharField(
-        max_length=255, default=None, choices=MEDICAL_CATEGORY_CHOICES
-    )
-    logged = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.item_name}"
