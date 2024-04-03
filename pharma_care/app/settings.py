@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from os import getenv
+
+from dotenv import load_dotenv
+
+
+# Load variables from a .env file, if present
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -109,11 +118,23 @@ sqlite_db_config = {
 #         "PORT": config("DB_PORT"),
 #     }
 # }
-
-if DEBUG:
-    DATABASES = sqlite_db_config
-else:
-    DATABASES = mysql_db_config
+# Replace the DATABASES section of your settings.py with this
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": getenv("PGDATABASE"),
+        "USER": getenv("PGUSER"),
+        "PASSWORD": getenv("PGPASSWORD"),
+        "HOST": getenv("PGHOST"),
+        "PORT": getenv("PGPORT", 5432),
+        "OPTIONS": {
+            "sslmode": "require",
+        },
+    }
+}
+# if DEBUG:
+#     DATABASES = sqlite_db_config
+# else:
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
