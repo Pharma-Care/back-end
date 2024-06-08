@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
 from os import getenv
 
 from dotenv import load_dotenv
@@ -35,10 +34,17 @@ SECRET_KEY = "django-insecure-uu&8j((to&7+sh5+fx_n-ji^-!z&t!hd0h2k1a&e(1p1yqy7bx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "164.90.168.22",
+    "localhost",
+    "127.0.0.1",
+]
 
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 # Application definition
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 
 INSTALLED_APPS = [
     "main",
@@ -57,6 +63,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "djoser",
+    "corsheaders",
     # "drf_yasg",
     "django_filters",
 ]
@@ -65,6 +72,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -108,18 +116,8 @@ sqlite_db_config = {
     }
 }
 
-# mysql_db_config = {
-#     "default": {
-#         "ENGINE": config("DB_ENGINE"),
-#         "NAME": config("DB_NAME"),
-#         "USER": config("DB_USER"),
-#         "PASSWORD": config("DB_PASSWORD"),
-#         "HOST": config("DB_HOST"),
-#         "PORT": config("DB_PORT"),
-#     }
-# }
 # Replace the DATABASES section of your settings.py with this
-DATABASES = {
+psql_db_config = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": getenv("PGDATABASE"),
@@ -132,10 +130,8 @@ DATABASES = {
         },
     }
 }
-# if DEBUG:
-#     DATABASES = sqlite_db_config
-# else:
 
+DATABASES = psql_db_config
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

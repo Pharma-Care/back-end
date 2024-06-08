@@ -18,8 +18,5 @@ class CommonUserEndpoint(APIView):
         if not user:
             raise rest_exceptions.NotFound("user not found!")
 
-        user_res = None
-        if user.role == "inventory_manager":
-            user_res = StaffAccountSerializer(user)
-
+        user_res = StaffAccountSerializer(user)
         return Response(user_res.data)
