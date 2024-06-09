@@ -57,8 +57,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "djoser",
+    "corsheaders",
     # "drf_yasg",
     "django_filters",
+
 ]
 
 MIDDLEWARE = [
@@ -69,7 +71,17 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    # Add other allowed origins here
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -118,23 +130,26 @@ sqlite_db_config = {
 #         "PORT": config("DB_PORT"),
 #     }
 # }
+
+if DEBUG:
+    DATABASES = sqlite_db_config
+else:
 # Replace the DATABASES section of your settings.py with this
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": getenv("PGDATABASE"),
-        "USER": getenv("PGUSER"),
-        "PASSWORD": getenv("PGPASSWORD"),
-        "HOST": getenv("PGHOST"),
-        "PORT": getenv("PGPORT", 5432),
-        "OPTIONS": {
-            "sslmode": "require",
-        },
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": getenv("PGDATABASE"),
+            "USER": getenv("PGUSER"),
+            "PASSWORD": getenv("PGPASSWORD"),
+            "HOST": getenv("PGHOST"),
+            "PORT": getenv("PGPORT", 5432),
+            "OPTIONS": {
+                "sslmode": "require",
+            },
+        }
     }
-}
-# if DEBUG:
-#     DATABASES = sqlite_db_config
-# else:
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
