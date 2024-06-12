@@ -35,6 +35,7 @@ class InventoryItem(models.Model):
     quantity = models.IntegerField(default=0)
     cost_per_unit = models.IntegerField(default=0)
     batch = models.CharField(max_length=255, blank=False, null=False)
+    expiry_date = models.DateField(default=None, blank=True, null=True)
 
     def __str__(self):
         return f"{self.item_name}"

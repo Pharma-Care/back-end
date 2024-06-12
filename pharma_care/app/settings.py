@@ -77,7 +77,17 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    # Add other allowed origins here
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -130,8 +140,35 @@ psql_db_config = {
         },
     }
 }
+# mysql_db_config = {
+#     "default": {
+#         "ENGINE": config("DB_ENGINE"),
+#         "NAME": config("DB_NAME"),
+#         "USER": config("DB_USER"),
+#         "PASSWORD": config("DB_PASSWORD"),
+#         "HOST": config("DB_HOST"),
+#         "PORT": config("DB_PORT"),
+#     }
+# }
 
-DATABASES = psql_db_config
+if DEBUG:
+    DATABASES = sqlite_db_config
+else:
+    # Replace the DATABASES section of your settings.py with this
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": getenv("PGDATABASE"),
+            "USER": getenv("PGUSER"),
+            "PASSWORD": getenv("PGPASSWORD"),
+            "HOST": getenv("PGHOST"),
+            "PORT": getenv("PGPORT", 5432),
+            "OPTIONS": {
+                "sslmode": "require",
+            },
+        }
+    }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
