@@ -24,7 +24,8 @@ urlpatterns = [
     path("auth/", include("djoser.urls.authtoken")),
     path("main/", include("main.urls")),
     path("inventory/", include("inventory.urls")),
+    path("orders/", include("orders.urls")),
     path("notification/", include("notification.urls")),
-    path('', include('prescription.urls')),
-    path('', include('customers.urls')),
+    path("", include("prescription.urls")),
+    path("", include("customers.urls")),
 ]
