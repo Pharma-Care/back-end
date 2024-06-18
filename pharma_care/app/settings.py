@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from os import getenv
-
+import os
 from dotenv import load_dotenv
 
 
@@ -118,6 +118,8 @@ WSGI_APPLICATION = "app.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 sqlite_db_config = {
     "default": {
@@ -150,25 +152,26 @@ psql_db_config = {
 #         "PORT": config("DB_PORT"),
 #     }
 # }
-
-if DEBUG:
-    DATABASES = sqlite_db_config
-else:
-    # Replace the DATABASES section of your settings.py with this
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": getenv("PGDATABASE"),
-            "USER": getenv("PGUSER"),
-            "PASSWORD": getenv("PGPASSWORD"),
-            "HOST": getenv("PGHOST"),
-            "PORT": getenv("PGPORT", 5432),
-            "OPTIONS": {
-                "sslmode": "require",
-            },
-        }
-    }
-
+#
+# if DEBUG:
+#     DATABASES = sqlite_db_config
+# else:
+#     # Replace the DATABASES section of your settings.py with this
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             "NAME": getenv("PGDATABASE"),
+#             "USER": getenv("PGUSER"),
+#             "PASSWORD": getenv("PGPASSWORD"),
+#             "HOST": getenv("PGHOST"),
+#             "PORT": getenv("PGPORT", 5432),
+#             "OPTIONS": {
+#                 "sslmode": "require",
+#             },
+#         }
+#     }
+#
+DATABASES = psql_db_config
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -208,5 +211,6 @@ STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+AFRO_API_KEY = ""
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

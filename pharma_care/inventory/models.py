@@ -34,8 +34,9 @@ class InventoryItem(models.Model):
     logged = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(default=0)
     cost_per_unit = models.IntegerField(default=0)
-    batch = models.CharField(max_length=255, blank=False, null=False)
+    batch = models.CharField(max_length=255, blank=True, null=True)
     expiry_date = models.DateField(default=None, blank=True, null=True)
+    image = models.ImageField(upload_to="uploads/", blank=True)
 
     def __str__(self):
         return f"{self.item_name}"

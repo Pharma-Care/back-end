@@ -52,3 +52,9 @@ class StaffAccountSerializer(serializers.ModelSerializer):
         staff_account.save()
 
         return staff_account
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    phone_number = serializers.CharField(max_length=15)
+    otp = serializers.CharField(max_length=6)
+    new_password = serializers.CharField(max_length=128, write_only=True)
