@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "orders",
     "notification",
     "inventory",
+    "customers",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
