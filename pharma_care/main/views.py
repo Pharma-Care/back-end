@@ -34,6 +34,19 @@ class ListCreateUsersAPIView(ListCreateAPIView):
         return super().get_queryset()
 
 
+class UpdateDestroyUsersAPIView(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = StaffAccount.objects.all()
+    serializer_class = StaffAccountSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+
 class PasswordResetView(APIView):
     def post(self, request):
         serializer = PasswordResetSerializer(data=request.data)

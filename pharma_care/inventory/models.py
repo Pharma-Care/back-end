@@ -40,3 +40,8 @@ class InventoryItem(models.Model):
 
     def __str__(self):
         return f"{self.item_name}"
+
+
+class ItemRecieve(models.Model):
+    vendor = models.CharField(max_length=255, blank=False, null=False)
+    item = models.ForeignKey(InventoryItem, on_delete=models.CASCADE)

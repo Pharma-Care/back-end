@@ -7,6 +7,15 @@ from .models import (
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
+from django.contrib.admin import AdminSite
+
+
+class MyAdminSite(AdminSite):
+    site_header = "My custom admin"  # Replace with your desired text
+
+
+admin_site = MyAdminSite()
+
 
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
