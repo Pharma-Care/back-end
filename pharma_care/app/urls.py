@@ -31,6 +31,7 @@ urlpatterns = [
     path("notification/", include("notification.urls")),
     path("", include("prescription.urls")),
     path("", include("customers.urls")),
+    path('adjustments/', include('adjustments.urls')),
 ]
 
 if settings.DEBUG:

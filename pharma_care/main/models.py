@@ -5,8 +5,6 @@ from django.utils.text import wrap
 
 USER_ROLES = (
     ("admin", "Admin"),
-    ("inventory_manager", "InventoryManager"),
-    ("pharmacy_technician", "PharmacyTechnician"),
     ("pharmacist", "Pharmacist"),
 )
 
